@@ -71,6 +71,15 @@ class TestQuadraticSolver:
         result = self.solver.solve(0, 0, 5)  # 5 = 0
         assert len(result) == 0
     
+    def test_two_real_roots_for_x_squared_minus_1(self):
+        """
+        Тест: для уравнения x² - 1 = 0 есть два действительных корня (x1=1, x2=-1).
+        """
+        result = self.solver.solve(1, 0, -1)
+        expected = [Root(1.0), Root(-1.0)]
+        assert len(result) == 2
+        assert roots_equal(result, expected)
+    
     def test_solve_quadratic_two_real_roots(self):
         """
         Тест: квадратное уравнение с двумя различными действительными корнями.

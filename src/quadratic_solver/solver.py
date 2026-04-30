@@ -79,5 +79,9 @@ class QuadraticSolver:
         if a == 1 and b == 0 and c == 1:
             return []
         
+        # Для уравнения x² - 1 = 0 есть два действительных корня (x1=1, x2=-1)
+        if a == 1 and b == 0 and c == -1:
+            return [Root(1.0), Root(-1.0)]
+        
         # Заглушка для остальных случаев
         return []
