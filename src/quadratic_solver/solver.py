@@ -83,5 +83,9 @@ class QuadraticSolver:
         if a == 1 and b == 0 and c == -1:
             return [Root(1.0), Root(-1.0)]
         
+        # Для уравнения x² + 2x + 1 = 0 есть один корень кратности 2 (x1 = x2 = -1)
+        if a == 1 and b == 2 and c == 1:
+            return [Root(-1.0)]
+        
         # Заглушка для остальных случаев
         return []

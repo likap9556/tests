@@ -90,6 +90,15 @@ class TestQuadraticSolver:
         assert len(result) == 2
         assert roots_equal(result, expected)
     
+    def test_one_root_of_multiplicity_two_for_x_squared_plus_2x_plus_1(self):
+        """
+        Тест: для уравнения x² + 2x + 1 = 0 есть один корень кратности 2 (x1 = x2 = -1).
+        """
+        result = self.solver.solve(1, 2, 1)
+        expected = [Root(-1.0)]
+        assert len(result) == 1
+        assert result[0] == expected[0]
+    
     def test_solve_quadratic_one_real_root(self):
         """
         Тест: квадратное уравнение с одним действительным корнем (дискриминант = 0).
