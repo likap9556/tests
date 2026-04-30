@@ -2,6 +2,7 @@
 Модуль для решения квадратных уравнений.
 """
 
+import math
 from dataclasses import dataclass
 from typing import Optional, Union, List
 
