@@ -54,6 +54,13 @@ class TestQuadraticSolver:
         with pytest.raises(ValueError, match="имеет бесконечно много решений"):
             self.solver.solve(0, 0, 0)
     
+    def test_solve_raises_exception_when_a_is_zero(self):
+        """
+        Тест: коэффициент a не может быть равен 0. В этом случае solve выбрасывает исключение.
+        """
+        with pytest.raises(ValueError, match="Коэффициент a не может быть равен 0"):
+            self.solver.solve(0, 1, 1)
+    
     def test_solve_linear_equation_when_a_zero(self):
         """
         Тест: решение линейного уравнения (a = 0, b ≠ 0).

@@ -66,6 +66,10 @@ class QuadraticSolver:
         if a == 0 and b == 0 and c == 0:
             raise ValueError("Уравнение 0 = 0 имеет бесконечно много решений")
         
+        # Проверка на a = 0 (с учетом погрешности)
+        if float_equal(a, 0):
+            raise ValueError("Коэффициент a не может быть равен 0")
+        
         # Случай линейного уравнения (a = 0)
         if a == 0:
             if b == 0:
