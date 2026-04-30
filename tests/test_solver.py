@@ -192,6 +192,41 @@ class TestQuadraticSolver:
         
         assert len(result) == 2
         assert roots_equal(result, expected)
+    
+    def test_solve_raises_exception_for_nan_coefficients(self):
+        """
+        Тест: solve выбрасывает исключение при использовании NaN для всех коэффициентов.
+        """
+        with pytest.raises(ValueError, match="Коэффициенты не могут быть NaN"):
+            self.solver.solve(float('nan'), 1, 1)
+        
+        with pytest.raises(ValueError, match="Коэффициенты не могут быть NaN"):
+            self.solver.solve(1, float('nan'), 1)
+        
+        with pytest.raises(ValueError, match="Коэффициенты не могут быть NaN"):
+            self.solver.solve(1, 1, float('nan'))
+    
+    def test_solve_raises_exception_for_infinite_coefficients(self):
+        """
+        Тест: solve выбрасывает исключение при использовании бесконечности для всех коэффициентов.
+        """
+        with pytest.raises(ValueError, match="Коэффициенты не могут быть бесконечными"):
+            self.solver.solve(float('inf'), 1, 1)
+        
+        with pytest.raises(ValueError, match="Коэффициенты не могут быть бесконечными"):
+            self.solver.solve(1, float('inf'), 1)
+        
+        with pytest.raises(ValueError, match="Коэффициенты не могут быть бесконечными"):
+            self.solver.solve(1, 1, float('inf'))
+        
+        with pytest.raises(ValueError, match="Коэффициенты не могут быть бесконечными"):
+            self.solver.solve(float('-inf'), 1, 1)
+        
+        with pytest.raises(ValueError, match="Коэффициенты не могут быть бесконечными"):
+            self.solver.solve(1, float('-inf'), 1)
+        
+        with pytest.raises(ValueError, match="Коэффициенты не могут быть бесконечными"):
+            self.solver.solve(1, 1, float('-inf'))
     """
     Тесты для класса QuadraticSolver.
     """
