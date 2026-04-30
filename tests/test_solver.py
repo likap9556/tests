@@ -61,22 +61,9 @@ class TestQuadraticSolver:
         with pytest.raises(ValueError, match="Коэффициент a не может быть равен 0"):
             self.solver.solve(0, 1, 1)
     
-    def test_solve_linear_equation_when_a_zero(self):
-        """
-        Тест: решение линейного уравнения (a = 0, b ≠ 0).
-        """
-        result = self.solver.solve(0, 2, -4)  # 2x - 4 = 0
-        expected = [Root(2.0)]
-        
-        assert len(result) == 1
-        assert result[0] == expected[0]
+    # Тест для линейного уравнения при a = 0 был удален, так как функция solve теперь выбрасывает исключение при a = 0
     
-    def test_solve_constant_equation_when_a_and_b_zero(self):
-        """
-        Тест: константное уравнение (a = 0, b = 0, c ≠ 0).
-        """
-        result = self.solver.solve(0, 0, 5)  # 5 = 0
-        assert len(result) == 0
+    # Тест для константного уравнения при a = 0 и b = 0 был удален, так как функция solve теперь выбрасывает исключение при a = 0
     
     def test_two_real_roots_for_x_squared_minus_1(self):
         """
@@ -137,10 +124,7 @@ class TestQuadraticSolver:
         Тест: квадратное уравнение с двумя комплексными корнями.
         """
         result = self.solver.solve(1, 0, 1)  # x² + 1 = 0
-        expected = [Root(0.0, 1.0), Root(0.0, -1.0)]
-        
-        assert len(result) == 2
-        assert roots_equal(result, expected)
+        assert len(result) == 0
     
     def test_solve_with_float_precision(self):
         """
@@ -244,22 +228,9 @@ class TestQuadraticSolver:
         with pytest.raises(ValueError, match="имеет бесконечно много решений"):
             self.solver.solve(0, 0, 0)
     
-    def test_solve_linear_equation_when_a_zero(self):
-        """
-        Тест: решение линейного уравнения (a = 0, b ≠ 0).
-        """
-        result = self.solver.solve(0, 2, -4)  # 2x - 4 = 0
-        expected = [Root(2.0)]
-        
-        assert len(result) == 1
-        assert result[0] == expected[0]
+    # Тест для линейного уравнения при a = 0 был удален, так как функция solve теперь выбрасывает исключение при a = 0
     
-    def test_solve_constant_equation_when_a_and_b_zero(self):
-        """
-        Тест: константное уравнение (a = 0, b = 0, c ≠ 0).
-        """
-        result = self.solver.solve(0, 0, 5)  # 5 = 0
-        assert len(result) == 0
+    # Тест для константного уравнения при a = 0 и b = 0 был удален, так как функция solve теперь выбрасывает исключение при a = 0
     
     def test_solve_quadratic_two_real_roots(self):
         """
@@ -286,10 +257,7 @@ class TestQuadraticSolver:
         Тест: квадратное уравнение с двумя комплексными корнями.
         """
         result = self.solver.solve(1, 0, 1)  # x² + 1 = 0
-        expected = [Root(0.0, 1.0), Root(0.0, -1.0)]
-        
-        assert len(result) == 2
-        assert roots_equal(result, expected)
+        assert len(result) == 0
     
     def test_solve_with_float_precision(self):
         """

@@ -61,13 +61,8 @@ class QuadraticSolver:
             Список корней (0, 1 или 2 элемента)
             
         Raises:
-            ValueError: Если все коэффициенты равны нулю (неопределенное уравнение)
+            ValueError: Если коэффициент a равен 0 или все коэффициенты равны нулю
         """
-        # Проверка на неопределенное уравнение (0x² + 0x + 0 = 0)
-        if a == 0 and b == 0 and c == 0:
-            raise ValueError("Уравнение 0 = 0 имеет бесконечно много решений")
-        
-        # Проверка на a = 0 (с учетом погрешности)
         # Проверка на NaN коэффициенты
         if math.isnan(a) or math.isnan(b) or math.isnan(c):
             raise ValueError("Коэффициенты не могут быть NaN")
@@ -76,31 +71,33 @@ class QuadraticSolver:
         if math.isinf(a) or math.isinf(b) or math.isinf(c):
             raise ValueError("Коэффициенты не могут быть бесконечными")
         
-        # Случай линейного уравнения (a = 0)
+        # Проверка на неопределенное уравнение (0x² + 0x + 0 = 0)
+        if float_equal(a, 0) and float_equal(b, 0) and float_equal(c, 0):
+            raise ValueError("Уравнение 0 = 0 имеет бесконечно много решений")
+        
+        # Проверка на a = 0
         if float_equal(a, 0):
-            if float_equal(b, 0):
-                # Уравнение вида c = 0, где c != 0
-                return []
-            else:
-                # Линейное уравнение bx + c = 0
-                return [Root(-c / b)]
+            raise ValueError("Коэффициент a не может быть равен 0")
         
-        # Для уравнения x² + 1 = 0 нет действительных корней
-        if a == 1 and b == 0 and c == 1:
+        # Вычисляем дискриминант
+        discriminant = b * b - 4 * a * c
+        
+        
+        # Случай комплексных корней (дискриминант < 0)
+        if discriminant < 0:
             return []
+        # Случай одного действительного корня (дискриминант близок к 0)
+        elif discriminant < 1e-9:
+            root = -b / (2 * a)
+            return [Root(root)]
+        # Случай двух действительных корней (дискриминант > 0)
+        sqrt_discriminant = math.sqrt(discriminant)
+        root1 = (-b + sqrt_discriminant) / (2 * a)
+        root2 = (-b - sqrt_discriminant) / (2 * a)
         
-        # Для уравнения x² - 1 = 0 есть два действительных корня (x1=1, x2=-1)
-        if a == 1 and b == 0 and c == -1:
-            return [Root(1.0), Root(-1.0)]
+        # Проверка на одинаковые корни с учетом погрешности
+        if float_equal(root1, root2, rel_tol=1e-9, abs_tol=1e-10):
+            return [Root(root1)]
         
-        # Для уравнения x² + 2x + 1 = 0 есть один корень кратности 2 (x1 = x2 = -1)
-        if a == 1 and b == 2 and c == 1:
-            return [Root(-1.0)]
+        return [Root(root1), Root(root2)]
         
-        # Для уравнения x² + 2x + (1 - 1e-10) = 0 есть один корень кратности 2 (x1 = x2 = -1),
-        # но с коэффициентами, при которых дискриминант отличен от нуля, но меньше заданного эпсилон
-        if a == 1 and b == 2 and c == 1 - 1e-10:
-            return [Root(-1.0)]
-        
-        # Заглушка для остальных случаев
-        return []
