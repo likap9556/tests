@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: quadratic_solver
+Version: 0.1.0
+Summary: Решатель квадратных уравнений с поддержкой TDD и CI/CD
+Author-email: Developer <developer@example.com>
+License-Expression: MIT
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-cov; extra == "test"
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+
+# Решатель квадратных уравнений
+
+Проект для решения квадратных уравнений с использованием TDD и настроенным CI/CD.
+
+## Особенности
+- Реализация решения квадратного уравнения ax² + bx + c = 0
+- Модульные тесты с использованием pytest
+- Настроенный CI/CD процесс
+- Поддержка особых случаев (a=0, комплексные корни)
+
+## Установка
+```bash
+pip install -r requirements.txt
+```
+
+## Запуск тестов
+```bash
+pytest tests/
+```
+
+## Использование
+```python
+from quadratic_solver.solver import QuadraticSolver
+
+solver = QuadraticSolver()
+roots = solver.solve(1, -5, 6)  # x² - 5x + 6 = 0
+print(roots)  # [2.0, 3.0]

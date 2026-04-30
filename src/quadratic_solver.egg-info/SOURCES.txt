@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+.github/workflows/test.yml
+src/quadratic_solver/__init__.py
+src/quadratic_solver/solver.py
+src/quadratic_solver.egg-info/PKG-INFO
+src/quadratic_solver.egg-info/SOURCES.txt
+src/quadratic_solver.egg-info/dependency_links.txt
+src/quadratic_solver.egg-info/requires.txt
+src/quadratic_solver.egg-info/top_level.txt
+tests/__init__.py
+tests/test_solver.py
+venv/pyvenv.cfg

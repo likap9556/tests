@@ -68,9 +68,6 @@ class QuadraticSolver:
             raise ValueError("Уравнение 0 = 0 имеет бесконечно много решений")
         
         # Проверка на a = 0 (с учетом погрешности)
-        if float_equal(a, 0):
-            raise ValueError("Коэффициент a не может быть равен 0")
-        
         # Проверка на NaN коэффициенты
         if math.isnan(a) or math.isnan(b) or math.isnan(c):
             raise ValueError("Коэффициенты не могут быть NaN")
@@ -78,6 +75,10 @@ class QuadraticSolver:
         # Проверка на бесконечные коэффициенты
         if math.isinf(a) or math.isinf(b) or math.isinf(c):
             raise ValueError("Коэффициенты не могут быть бесконечными")
+        
+        # Проверка на a = 0 (с учетом погрешности)
+        if float_equal(a, 0):
+            raise ValueError("Коэффициент a не может быть равен 0")
         
         # Случай линейного уравнения (a = 0)
         if a == 0:

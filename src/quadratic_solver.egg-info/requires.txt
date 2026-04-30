@@ -1,0 +1,10 @@
+
+[dev]
+pytest
+pytest-cov
+ruff
+mypy
+
+[test]
+pytest
+pytest-cov
