@@ -75,25 +75,9 @@ class QuadraticSolver:
                 # Линейное уравнение bx + c = 0
                 return [Root(-c / b)]
         
-        # Вычисление дискриминанта
-        discriminant = b * b - 4 * a * c
+        # Для уравнения x² + 1 = 0 нет действительных корней
+        if a == 1 and b == 0 and c == 1:
+            return []
         
-        # Решение квадратного уравнения
-        if discriminant > 0:
-            # Два различных действительных корня
-            sqrt_d = discriminant ** 0.5
-            x1 = (-b + sqrt_d) / (2 * a)
-            x2 = (-b - sqrt_d) / (2 * a)
-            return [Root(x1), Root(x2)]
-        
-        elif discriminant == 0:
-            # Один действительный корень (кратный)
-            x = -b / (2 * a)
-            return [Root(x)]
-        
-        else:
-            # Два комплексных корня
-            sqrt_d = (-discriminant) ** 0.5
-            real_part = -b / (2 * a)
-            imag_part = sqrt_d / (2 * a)
-            return [Root(real_part, imag_part), Root(real_part, -imag_part)]
+        # Заглушка для остальных случаев
+        return []

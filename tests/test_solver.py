@@ -40,6 +40,127 @@ class TestQuadraticSolver:
         """
         self.solver = QuadraticSolver()
     
+    def test_no_real_roots_for_x_squared_plus_1(self):
+        """
+        Тест: для уравнения x² + 1 = 0 нет действительных корней.
+        """
+        result = self.solver.solve(1, 0, 1)
+        assert len(result) == 0
+    
+    def test_solve_raises_value_error_when_all_coefficients_zero(self):
+        """
+        Тест: при всех нулевых коэффициентах должно выбрасываться ValueError.
+        """
+        with pytest.raises(ValueError, match="имеет бесконечно много решений"):
+            self.solver.solve(0, 0, 0)
+    
+    def test_solve_linear_equation_when_a_zero(self):
+        """
+        Тест: решение линейного уравнения (a = 0, b ≠ 0).
+        """
+        result = self.solver.solve(0, 2, -4)  # 2x - 4 = 0
+        expected = [Root(2.0)]
+        
+        assert len(result) == 1
+        assert result[0] == expected[0]
+    
+    def test_solve_constant_equation_when_a_and_b_zero(self):
+        """
+        Тест: константное уравнение (a = 0, b = 0, c ≠ 0).
+        """
+        result = self.solver.solve(0, 0, 5)  # 5 = 0
+        assert len(result) == 0
+    
+    def test_solve_quadratic_two_real_roots(self):
+        """
+        Тест: квадратное уравнение с двумя различными действительными корнями.
+        """
+        result = self.solver.solve(1, -5, 6)  # x² - 5x + 6 = 0
+        expected = [Root(2.0), Root(3.0)]
+        
+        assert len(result) == 2
+        assert roots_equal(result, expected)
+    
+    def test_solve_quadratic_one_real_root(self):
+        """
+        Тест: квадратное уравнение с одним действительным корнем (дискриминант = 0).
+        """
+        result = self.solver.solve(1, -4, 4)  # x² - 4x + 4 = 0
+        expected = [Root(2.0)]
+        
+        assert len(result) == 1
+        assert result[0] == expected[0]
+    
+    def test_solve_quadratic_complex_roots(self):
+        """
+        Тест: квадратное уравнение с двумя комплексными корнями.
+        """
+        result = self.solver.solve(1, 0, 1)  # x² + 1 = 0
+        expected = [Root(0.0, 1.0), Root(0.0, -1.0)]
+        
+        assert len(result) == 2
+        assert roots_equal(result, expected)
+    
+    def test_solve_with_float_precision(self):
+        """
+        Тест: проверка точности вычислений с плавающей точкой.
+        """
+        # Уравнение с корнями, которые могут вызвать проблемы с точностью
+        result = self.solver.solve(1, -6, 9)  # x² - 6x + 9 = 0
+        
+        assert len(result) == 1
+        # Проверяем, что корень близок к 3.0 с учетом погрешности
+        assert float_equal(result[0].real, 3.0)
+    
+    def test_solve_with_small_coefficients(self):
+        """
+        Тест: уравнение с очень малыми коэффициентами.
+        """
+        result = self.solver.solve(1e-10, -2e-10, 1e-10)  # 1e-10x² - 2e-10x + 1e-10 = 0
+        
+        assert len(result) == 1
+        # Ожидаем корень около 1.0
+        assert float_equal(result[0].real, 1.0)
+    
+    def test_solve_with_large_coefficients(self):
+        """
+        Тест: уравнение с очень большими коэффициентами.
+        """
+        result = self.solver.solve(1e10, -2e10, 1e10)  # 1e10x² - 2e10x + 1e10 = 0
+        
+        assert len(result) == 1
+        # Ожидаем корень около 1.0
+        assert float_equal(result[0].real, 1.0)
+    
+    def test_solve_with_negative_a(self):
+        """
+        Тест: уравнение с отрицательным коэффициентом a.
+        """
+        result = self.solver.solve(-1, 0, 4)  # -x² + 4 = 0
+        expected = [Root(2.0), Root(-2.0)]
+        
+        assert len(result) == 2
+        assert roots_equal(result, expected)
+    
+    def test_solve_with_fractional_coefficients(self):
+        """
+        Тест: уравнение с дробными коэффициентами.
+        """
+        result = self.solver.solve(0.5, -1.5, 1.0)  # 0.5x² - 1.5x + 1 = 0
+        expected = [Root(1.0), Root(2.0)]
+        
+        assert len(result) == 2
+        assert roots_equal(result, expected)
+    """
+    Тесты для класса QuadraticSolver.
+    """
+    
+    def setup_method(self):
+        """
+        Инициализация перед каждым тестом.
+        """
+        self.solver = QuadraticSolver()
+    
     def test_solve_raises_value_error_when_all_coefficients_zero(self):
         """
         Тест: при всех нулевых коэффициентах должно выбрасываться ValueError.
