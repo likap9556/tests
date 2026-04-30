@@ -76,13 +76,9 @@ class QuadraticSolver:
         if math.isinf(a) or math.isinf(b) or math.isinf(c):
             raise ValueError("Коэффициенты не могут быть бесконечными")
         
-        # Проверка на a = 0 (с учетом погрешности)
-        if float_equal(a, 0):
-            raise ValueError("Коэффициент a не может быть равен 0")
-        
         # Случай линейного уравнения (a = 0)
-        if a == 0:
-            if b == 0:
+        if float_equal(a, 0):
+            if float_equal(b, 0):
                 # Уравнение вида c = 0, где c != 0
                 return []
             else:
